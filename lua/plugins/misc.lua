@@ -55,5 +55,17 @@ return {
       require('colorizer').setup()
     end,
   },
+  {
+    'echasnovski/mini.ai',
+    version = false,
+  },
+  {
+    'echasnovski/mini.surround',
+    version = false,
+  },
+  {
+    'echasnovski/mini.operators',
+    version = false,
+  },
 }
 

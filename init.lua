@@ -56,6 +56,6 @@ vim.diagnostic.config({
 })
 
 vim.lsp.enable({"lua-language-server", "clangd"})
-vim.cmd("set completeopt+=noselect")
+-- vim.cmd("set completeopt+=noselect")
 --vim.o.winborder = 'rounded'
 
