@@ -13,7 +13,19 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
+-- Import color theme based on environment variable NVIM_THEME
+local default_color_scheme = 'nord'
+local env_var_nvim_theme = os.getenv 'NVIM_THEME' or default_color_scheme
+
+-- Define a table of theme modules
+local themes = {
+  nord = 'plugins.themes.nord',
+  onedark = 'plugins.themes.onedark',
+}
+
 require('lazy').setup({
+    require(themes[env_var_nvim_theme]),
     require 'plugins.neotree',
     require 'plugins.colortheme',
     require 'plugins.bufferline',	
@@ -25,6 +37,9 @@ require('lazy').setup({
     require 'plugins.alpha',
     require 'plugins.misc',
     require 'plugins.indent-blankline',
+    require 'plugins.debug',
+    require 'plugins.vim-tmux-navigator',
+    require 'plugins.aerial'
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -42,5 +57,5 @@ vim.diagnostic.config({
 
 vim.lsp.enable({"lua-language-server", "clangd"})
 vim.cmd("set completeopt+=noselect")
-vim.o.winborder = 'rounded'
+--vim.o.winborder = 'rounded'
 
