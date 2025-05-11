@@ -3,6 +3,8 @@ vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<space>x", ":lua<CR>")
 vim.keymap.set("v", "<space>x", ":lua<CR>")
 
+-- vim.cmd [[ hi @function.builtin.lua guifg=pink]]
+
 vim.opt.shiftwidth = 4
 -- press p to paste clip board buffer
 vim.opt.clipboard = "unnamedplus"
