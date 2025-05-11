@@ -18,4 +18,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.lsp.enable('clangd')
+vim.lsp.enable({'luals', 'clangd'})
+
