@@ -18,5 +18,30 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
-vim.lsp.enable({'luals', 'clangd'})
+
+
+
+
+-- vim.lsp.enable({'luals', 'clangd'})
+local lsp_configs = {}
+for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
+  local server_name = vim.fn.fnamemodify(f, ':t:r')
+  table.insert(lsp_configs, server_name)
+end
+
+vim.lsp.enable(lsp_configs)
+
+vim.opt.completeopt = {'menu', 'menuone', 'noinsert', 'noselect'}
+-- vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config({ virtual_text = { current_line = true } })
+vim.o.winborder = 'rounded'
+
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(ev)
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client:supports_method('textDocument/completion') then
+      vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = true })
+    end
+  end,
+})
 

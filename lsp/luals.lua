@@ -18,7 +18,10 @@ return {
     Lua = {
       runtime = {
 	version = 'LuaJIT',
-      }
+      },
+      diagnostics = {
+        globals = { 'vim' }, -- This line is essential
+      },
     }
   }
 }
