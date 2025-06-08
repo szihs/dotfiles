@@ -47,15 +47,15 @@ vim.keymap.set("n", "<space>st", function()
 end)
 
 -- vim.lsp.enable({'luals', 'clangd'})
-local capabilities = require('blink.cmp').get_lsp_capabilities({
-  textDocument = { completion = { completionItem = { snippetSupport = false } } },
-})
-vim.lsp.config('*',
-  {
-    capabilities = capabilities,
-    root_markers = { '.git' },
-  }
-)
+-- local capabilities = require('blink.cmp').get_lsp_capabilities({
+--   textDocument = { completion = { completionItem = { snippetSupport = false } } },
+-- })
+-- vim.lsp.config('*',
+--   {
+--     capabilities = capabilities,
+--     root_markers = { '.git' },
+--   }
+-- )
 
 local lsp_configs = {}
 for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
