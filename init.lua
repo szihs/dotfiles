@@ -5,6 +5,40 @@ vim.keymap.set("v", "<space>x", ":lua<CR>")
 vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>")
 vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>")
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+-- delete single character without copying into register
+vim.keymap.set('n', 'x', '"_x')
+
+-- Find and center
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+-- Resize with arrows
+-- vim.keymap.set('n', '<Up>', ':resize -2<CR>')
+-- vim.keymap.set('n', '<Down>', ':resize +2<CR>')
+vim.keymap.set('n', '<Left>', ':vertical resize -2<CR>')
+vim.keymap.set('n', '<Right>', ':vertical resize +2<CR>')
+
+-- Window management
+vim.keymap.set('n', '<leader>v', '<C-w>v')      -- split window vertically
+vim.keymap.set('n', '<leader>h', '<C-w>s')      -- split window horizontally
+vim.keymap.set('n', '<leader>se', '<C-w>=')     -- make split windows equal width & height
+vim.keymap.set('n', '<leader>xs', ':close<CR>') -- close current split window
+
+-- Navigate between splits
+vim.keymap.set('n', '<C-k>', ':wincmd k<CR>')
+vim.keymap.set('n', '<C-j>', ':wincmd j<CR>')
+vim.keymap.set('n', '<C-h>', ':wincmd h<CR>')
+vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+
+-- Keep last yanked when pasting
+vim.keymap.set('v', 'p', '"_dP')
+
 
 -- vim.cmd [[ hi @function.builtin.lua guifg=pink]]
 
@@ -69,6 +103,13 @@ vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
 -- vim.diagnostic.config({ virtual_text = true })
 vim.diagnostic.config({ virtual_text = { current_line = true } })
 vim.o.winborder = 'none'
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  pattern = { "*.slang", "*.slangh", "*.hlsl", "*.usf", "*.ush", "*.vfx", "*.fxc" },
+  callback = function()
+    vim.bo.filetype = "slang"
+  end,
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)

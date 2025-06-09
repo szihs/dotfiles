@@ -7,7 +7,21 @@ return {
       { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' }
     },
     config = function()
+      local actions = require 'telescope.actions'
+      local builtin = require 'telescope.builtin'
       require('telescope').setup {
+        defaults = {
+          mappings = {
+            i = {
+              ['<C-k>'] = actions.move_selection_previous, -- move to prev result
+              ['<C-j>'] = actions.move_selection_next,     -- move to next result
+              ['<C-l>'] = actions.select_default,          -- open file
+            },
+            n = {
+              ['q'] = actions.close,
+            },
+          },
+        },
         pickers = {
           find_files = {
             theme = "ivy"
@@ -22,7 +36,17 @@ return {
 
       vim.keymap.set("n", "<space>fh", require('telescope.builtin').help_tags)
       vim.keymap.set("n", "<space>fd", require('telescope.builtin').find_files)
+      --
+      vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
+      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
+      vim.keymap.set('n', '<leader>/', function()
+        -- You can pass additional configuration to telescope to change theme, layout, etc.
+        builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+          previewer = false,
+        })
+      end, { desc = '[/] Fuzzily search in current buffer' })
 
+      --
       vim.keymap.set("n", "<space>en", function()
         local opts = require('telescope.themes').get_dropdown({
           cwd = vim.fn.stdpath("config")
