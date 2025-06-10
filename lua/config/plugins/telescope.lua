@@ -34,11 +34,10 @@ return {
 
       require('telescope').load_extension('fzf')
 
-      vim.keymap.set("n", "<space>fh", require('telescope.builtin').help_tags)
-      vim.keymap.set("n", "<space>fd", require('telescope.builtin').find_files)
+      vim.keymap.set("n", "<space>fh", require('telescope.builtin').help_tags, { desc = '[H]elp Telescope' })
+      vim.keymap.set("n", "<space>fd", require('telescope.builtin').find_files, { desc = '[F]ind Files' })
       --
-      vim.keymap.set('n', '<leader>?', builtin.oldfiles, { desc = '[?] Find recently opened files' })
-      vim.keymap.set('n', '<leader>sb', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = '[S]earch existing [B]uffers' })
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to telescope to change theme, layout, etc.
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
@@ -52,13 +51,13 @@ return {
           cwd = vim.fn.stdpath("config")
         })
         require('telescope.builtin').find_files(opts)
-      end)
+      end, { desc = "Find in neovim config directory" })
 
       vim.keymap.set("n", "<space>ep", function()
         require('telescope.builtin').find_files {
           cwd = vim.fs.joinpath(vim.fn.stdpath("data"), "lazy")
         }
-      end)
+      end, { desc = "Find in nvim package dir" })
 
 
       require("config.telescope.multigrep").setup()

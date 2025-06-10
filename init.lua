@@ -30,8 +30,13 @@ vim.keymap.set('n', '<C-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '[d', function()
+  vim.diagnostic.jump({ count = -1, float = true })
+end, { desc = 'Go to previous diagnostic message' })
+
+vim.keymap.set('n', ']d', function()
+  vim.diagnostic.jump({ count = 1, float = true })
+end, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
@@ -39,6 +44,9 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Keep last yanked when pasting
 vim.keymap.set('v', 'p', '"_dP')
 
+vim.cmd [[ 
+nnoremap <space>ss <cmd>lua require('sg.extensions.telescope').fuzzy_search_results()<CR>
+]]
 
 -- vim.cmd [[ hi @function.builtin.lua guifg=pink]]
 
@@ -80,16 +88,16 @@ vim.keymap.set("n", "<space>st", function()
   vim.fn.chansend(job_id, { "claude \r\n" })
 end)
 
--- vim.lsp.enable({'luals', 'clangd'})
--- local capabilities = require('blink.cmp').get_lsp_capabilities({
---   textDocument = { completion = { completionItem = { snippetSupport = false } } },
--- })
--- vim.lsp.config('*',
---   {
---     capabilities = capabilities,
---     root_markers = { '.git' },
---   }
--- )
+vim.lsp.enable({'luals', 'clangd'})
+local capabilities = require('blink.cmp').get_lsp_capabilities({
+  textDocument = { completion = { completionItem = { snippetSupport = false } } },
+})
+vim.lsp.config('*',
+  {
+    capabilities = capabilities,
+    root_markers = { '.git' },
+  }
+)
 
 local lsp_configs = {}
 for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
@@ -98,7 +106,7 @@ for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
 end
 
 vim.lsp.enable(lsp_configs)
-
+--
 vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
 -- vim.diagnostic.config({ virtual_text = true })
 vim.diagnostic.config({ virtual_text = { current_line = true } })
