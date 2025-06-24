@@ -46,6 +46,10 @@ return {
           end,
           cwd = "${workspaceFolder}",
           stopAtBeginningOfMainSubprogram = false,
+          args = function()
+            local args_str = vim.fn.input('Arguments: ')
+            return vim.split(args_str, ' +')
+          end,
         },
         {
           name = "Select and attach to process",
@@ -94,8 +98,11 @@ return {
       --
       vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
       vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
+      vim.keymap.set("n", "<space>dr", function()
+        require("dapui").open({ reset = true })
+      end)
 
-      -- Eval var under cursor
+      -- Eval var under curso
       vim.keymap.set("n", "<space><space>q", function()
         require("dapui").eval(nil, { enter = true })
       end)

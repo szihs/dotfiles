@@ -29,6 +29,8 @@ vim.keymap.set('n', '<C-j>', ':wincmd j<CR>')
 vim.keymap.set('n', '<C-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
 
+vim.keymap.set('n', '<leader>e', '<cmd>lua MiniFiles.open()<cr>', { desc = 'File explorer' })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', function()
   vim.diagnostic.jump({ count = -1, float = true })
@@ -44,13 +46,17 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- Keep last yanked when pasting
 vim.keymap.set('v', 'p', '"_dP')
 
-vim.cmd [[ 
+vim.cmd [[
 nnoremap <space>ss <cmd>lua require('sg.extensions.telescope').fuzzy_search_results()<CR>
 ]]
 
 -- vim.cmd [[ hi @function.builtin.lua guifg=pink]]
 
+vim.opt.relativenumber = false
+vim.opt.number = true
 vim.opt.shiftwidth = 4
+vim.o.signcolumn = 'auto'
+
 -- press p to paste clip board buffer
 vim.opt.clipboard = "unnamedplus"
 -- Highlight when yanking text
@@ -88,16 +94,16 @@ vim.keymap.set("n", "<space>st", function()
   vim.fn.chansend(job_id, { "claude \r\n" })
 end)
 
-vim.lsp.enable({'luals', 'clangd'})
-local capabilities = require('blink.cmp').get_lsp_capabilities({
-  textDocument = { completion = { completionItem = { snippetSupport = false } } },
-})
-vim.lsp.config('*',
-  {
-    capabilities = capabilities,
-    root_markers = { '.git' },
-  }
-)
+-- vim.lsp.enable({ 'luals', 'clangd' })
+-- local capabilities = require('blink.cmp').get_lsp_capabilities({
+--   textDocument = { completion = { completionItem = { snippetSupport = false } } },
+-- })
+-- vim.lsp.config('*',
+--   {
+--     capabilities = capabilities,
+--     root_markers = { '.git' },
+--   }
+-- )
 
 local lsp_configs = {}
 for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do

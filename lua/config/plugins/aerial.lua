@@ -26,6 +26,7 @@ return {
       -- }),
       -- Disable aerial on files this size or larger (in bytes)
       disable_max_size = 200000000, -- Default 2MB
+      disable_max_lines = 1000000,
       layout = {
         min_width = 30,
       },
