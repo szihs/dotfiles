@@ -4,11 +4,19 @@ return {
   filetypes = { 'slang', 'hlsl' },
   settings = {
     slang = {
-      additionalSearchPaths = {},   -- Add your include directories here
-      predefinedMacros = {},        -- Add any macros you need
+      additionalSearchPaths = {},
+      predefinedMacros = {},
       searchInAllWorkspaceDirectories = true
     },
-    ["slangLanguageServer.trace.server"] = "verbose",
-    ["slangLanguageServer.trace.communication"] = "verbose"
-  }
+    -- capabilities = {
+    --   textDocument = {
+    --     semanticTokens = nil -- vim.empty_dict() -- Explicitly disable semantic tokens
+    --   }
+    -- },
+    slangLanguageServer = {
+      trace = {
+        server = "verbose"
+      }
+    }
+  },
 }

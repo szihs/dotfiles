@@ -17,6 +17,8 @@ return {
         vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', { buffer = bufnr })
       end,
 
+      filter_kind = false,
+      icons = {},
       -- Disable aerial on files with this many lines
       -- disable_max_lines = 1000000,
       -- icons = setmetatable({}, {

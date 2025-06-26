@@ -2,6 +2,36 @@ return {
   {
     dir = "/home/haaggarwal/.local/share/nvim/lazy/claudecode.nvim",
     config = true,
+    opts = {
+      -- Server Configuration
+      port_range = { min = 10000, max = 65535 },
+      auto_start = true,
+      log_level = "info",            -- "trace", "debug", "info", "warn", "error"
+      terminal_cmd = "claude-trace", -- Custom terminal command (default: "claude")
+
+      -- Selection Tracking
+      track_selection = true,
+      visual_demotion_delay_ms = 50,
+
+      -- Terminal Configuration
+      terminal = {
+        -- split_side = "right", -- "left" or "right"
+        -- split_width_percentage = 0.30,
+        -- provider = "auto", -- "auto", "snacks", or "native"
+        -- auto_close = true,
+        use_floating_window = true,
+        float_width_percentage = 0.9,
+        float_height_percentage = 0.9,
+        float_border = "rounded",
+      },
+
+      -- Diff Integration
+      diff_opts = {
+        auto_close_on_accept = true,
+        vertical_split = true,
+        open_in_current_tab = true,
+      },
+    },
     keys = {
       { "<leader>a",  nil,                              desc = "AI/Claude Code" },
       { "<leader>ac", "<cmd>ClaudeCode<cr>",            desc = "Toggle Claude" },
@@ -16,6 +46,8 @@ return {
         desc = "Add file",
         ft = { "NvimTree", "neo-tree", "oil" },
       },
+      { "<leader>aS", "<cmd>ClaudeCodeStart<cr>",      desc = "Start Claude Server" },
+      { "<leader>aQ", "<cmd>ClaudeCodeStop<cr>",       desc = "Stop Claude Server" },
       -- Diff management
       { "<leader>aa", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
       { "<leader>ad", "<cmd>ClaudeCodeDiffDeny<cr>",   desc = "Deny diff" },
