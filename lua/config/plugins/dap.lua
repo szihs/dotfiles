@@ -101,7 +101,9 @@ return {
       vim.keymap.set("n", "<space>dr", function()
         require("dapui").open({ reset = true })
       end)
-
+      vim.keymap.set("n", "<space>de", function()
+        require("dap").set_exception_breakpoints({ "unhandled" }) -- Pause only on unhandled exceptions
+      end, { desc = "Set exception breakpoints" })
       -- Eval var under curso
       vim.keymap.set("n", "<space><space>q", function()
         require("dapui").eval(nil, { enter = true })

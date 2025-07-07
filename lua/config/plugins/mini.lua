@@ -119,6 +119,9 @@ return {
               end
             end
 
+            -- Get current time
+            local time = os.date("%H:%M")
+
             return statusline.combine_groups({
               { hl = mode_hl,          strings = { mode } },
               { hl = 'StatuslineGit',  strings = { git } },
@@ -130,7 +133,7 @@ return {
               { hl = 'StatuslineAerial',       strings = { aerial_info, aerial_backend } },
               '%=', -- End left alignment
               { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
-              { hl = mode_hl,                  strings = { search, location } },
+              { hl = mode_hl,                  strings = { search, location, time } },
             })
           end,
         },

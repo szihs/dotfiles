@@ -1,4 +1,5 @@
 require("config.lazy")
+
 vim.keymap.set("n", "<space><space>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<space>x", ":lua<CR>")
 vim.keymap.set("v", "<space>x", ":lua<CR>")
@@ -30,6 +31,8 @@ vim.keymap.set('n', '<C-h>', ':wincmd h<CR>')
 vim.keymap.set('n', '<C-l>', ':wincmd l<CR>')
 
 vim.keymap.set('n', '<leader>e', '<cmd>lua MiniFiles.open()<cr>', { desc = 'File explorer' })
+-- vim.api.nvim_set_keymap('t', '<C-S-v>', '<C-\\><C-n>"+pi', { noremap = true, silent = true })
+
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', function()
@@ -91,7 +94,7 @@ vim.keymap.set("n", "<space>cc", function()
 end)
 
 vim.keymap.set("n", "<space>st", function()
-  vim.fn.chansend(job_id, { "claude \r\n" })
+  vim.fn.chansend(job_id, { "cmake --build --preset debug\r\n" })
 end)
 
 -- vim.lsp.enable({ 'luals', 'clangd' })
@@ -111,6 +114,7 @@ for _, f in pairs(vim.api.nvim_get_runtime_file("lsp/*.lua", true)) do
   table.insert(lsp_configs, server_name)
 end
 
+-- vim.lsp.set_log_level(0)
 vim.lsp.enable(lsp_configs)
 --
 vim.opt.completeopt = { 'menu', 'menuone', 'noinsert', 'noselect' }
