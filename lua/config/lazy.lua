@@ -38,7 +38,7 @@ require("lazy").setup({
         -- })
 
         -- Set the colorscheme
-        vim.cmd("colorscheme tokyonight")
+        vim.cmd("colorscheme evening")
       end,
     },
     { import = "config.plugins" },

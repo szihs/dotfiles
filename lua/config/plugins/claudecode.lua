@@ -1,13 +1,13 @@
 return {
   {
-    dir = "/home/haaggarwal/.local/share/nvim/lazy/claudecode.nvim",
+    "coder/claudecode.nvim",
     config = true,
     opts = {
       -- Server Configuration
       port_range = { min = 10000, max = 65535 },
       auto_start = true,
-      log_level = "warn",                                              -- "trace", "debug", "info", "warn", "error"
-      terminal_cmd = "claude-trace --include-all-requests --run-with", -- Custom terminal command (default: "claude")
+      log_level = "info",            -- "trace", "debug", "info", "warn", "error"
+      -- terminal_cmd = "claude-trace", -- Custom terminal command (default: "claude")
 
       -- Selection Tracking
       track_selection = true,
@@ -20,8 +20,8 @@ return {
         -- provider = "auto", -- "auto", "snacks", or "native"
         -- auto_close = true,
         use_floating_window = true,
-        float_width_percentage = 1.0,
-        float_height_percentage = 1.0,
+        float_width_percentage = 0.9,
+        float_height_percentage = 0.9,
         float_border = "rounded",
       },
 

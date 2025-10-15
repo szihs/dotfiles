@@ -62,6 +62,18 @@ vim.o.signcolumn = 'auto'
 
 -- press p to paste clip board buffer
 vim.opt.clipboard = "unnamedplus"
+vim.g.clipboard = {
+  name = "OSC 52",
+  copy = {
+    ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+  },
+  paste = {
+    ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+    ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+  },
+}
+
 -- Highlight when yanking text
 -- See `:help vim.highlight.on_yank()`
 vim.api.nvim_create_autocmd('TextYankPost', {
@@ -93,6 +105,7 @@ vim.keymap.set("n", "<space>cc", function()
   job_id = vim.bo.channel
 end)
 
+vim.o.termguicolors = true
 vim.keymap.set("n", "<space>st", function()
   vim.fn.chansend(job_id, { "cmake --build --preset debug\r\n" })
 end)

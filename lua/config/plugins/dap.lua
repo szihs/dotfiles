@@ -33,7 +33,8 @@ return {
       dap.adapters.gdb = {
         type = "executable",
         command = "gdb",
-        args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
+        args = { "--interpreter=dap" }
+        -- args = { "--interpreter=dap", "--eval-command", "set print pretty on" }
       }
 
       dap.configurations.c = {
@@ -41,6 +42,7 @@ return {
           name = "Launch",
           type = "gdb",
           request = "launch",
+          -- setupCommands = { { text = "set debug dap-log-level 3" } },
           program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
           end,
@@ -76,26 +78,6 @@ return {
         },
       }
       dap.configurations.cpp = dap.configurations.c
-      -- local elixir_ls_debugger = vim.fn.exepath "elixir-ls-debugger"
-      -- if elixir_ls_debugger ~= "" then
-      --   dap.adapters.mix_task = {
-      --     type = "executable",
-      --     command = elixir_ls_debugger,
-      --   }
-      --
-      --   dap.configurations.elixir = {
-      --     {
-      --       type = "mix_task",
-      --       name = "phoenix server",
-      --       task = "phx.server",
-      --       request = "launch",
-      --       projectDir = "${workspaceFolder}",
-      --       exitAfterTaskReturns = false,
-      --       debugAutoInterpretAllModules = false,
-      --     },
-      --   }
-      -- end
-      --
       vim.keymap.set("n", "<space>b", dap.toggle_breakpoint)
       vim.keymap.set("n", "<space>gb", dap.run_to_cursor)
       vim.keymap.set("n", "<space>dr", function()
